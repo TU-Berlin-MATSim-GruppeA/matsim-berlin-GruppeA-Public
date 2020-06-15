@@ -19,10 +19,6 @@
 
 package org.matsim.run;
 
-import static org.matsim.run.RunBerlinScenarioTest.analyzeModeStats;
-
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -35,6 +31,10 @@ import org.matsim.core.controler.Controler;
 import org.matsim.core.controler.OutputDirectoryHierarchy;
 import org.matsim.core.gbl.Gbl;
 import org.matsim.testcases.MatsimTestUtils;
+
+import java.util.Map;
+
+import static org.matsim.run.RunBerlinScenarioTest.analyzeModeStats;
 
 public class RunBerlinScenarioIT{
 	private static final Logger log = Logger.getLogger( RunBerlinScenarioIT.class ) ;

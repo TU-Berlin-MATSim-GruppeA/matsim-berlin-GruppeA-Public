@@ -19,11 +19,11 @@
 
 package org.matsim.run;
 
+import org.matsim.core.config.ReflectiveConfigGroup;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.matsim.core.config.ReflectiveConfigGroup;
 
 /**
  * 

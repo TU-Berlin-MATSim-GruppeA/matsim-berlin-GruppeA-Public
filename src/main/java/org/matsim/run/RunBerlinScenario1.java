@@ -26,7 +26,7 @@ import org.matsim.analysis.RunPersonTripAnalysis;
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.TransportMode;
-import org.matsim.api.core.v01.population.Person;
+import org.matsim.api.core.v01.population.*;
 import org.matsim.contrib.drt.routing.DrtRoute;
 import org.matsim.contrib.drt.routing.DrtRouteFactory;
 import org.matsim.core.config.Config;
@@ -60,9 +60,9 @@ import static org.matsim.core.config.groups.ControlerConfigGroup.RoutingAlgorith
 * @author ikaddoura
 */
 
-public final class RunBerlinScenario {
+public final class RunBerlinScenario1 {
 
-	private static final Logger log = Logger.getLogger(RunBerlinScenario.class );
+	private static final Logger log = Logger.getLogger(RunBerlinScenario1.class );
 
 	public static void main(String[] args) {
 		
@@ -71,16 +71,29 @@ public final class RunBerlinScenario {
 		}
 		
 		if ( args.length==0 ) {
-			//args = new String[] {"scenarios/berlin-v5.5-1pct/input/berlin-v5.5-1pct.config.xml"}  ;
+			args = new String[] {"scenarios/berlin-v5.5-1pct/input/berlin-v5.5-1pct.config.xml"}  ;
 			//args = new String[] {"scenarios/berlin-v5.5-1pct/input/berlin-v5.5-1pct.config_LaneReducedAndSpeedLimited.xml"}  ;
 			//args = new String[] {"scenarios/berlin-v5.5-1pct/input/berlin-v5.5-1pct.config_LaneReducedAndSpeedLimitedWithNoCarZone.xml"}  ;
 
-			args = new String[] {"scenarios/berlin-v5.5-1pct/input/berlin-v5.5-1pct.config_LaneReducedAndSpeedLimitedWithNoCarZone_AddWalk.xml"}  ;
+			//args = new String[] {"scenarios/berlin-v5.5-1pct/input/berlin-v5.5-1pct.config_LaneReducedAndSpeedLimitedWithNoCarZone_AddWalk.xml"}  ;
 
 		}
 
 		Config config = prepareConfig( args ) ;
 		Scenario scenario = prepareScenario( config ) ;
+		for (Person person : scenario.getPopulation().getPersons().values()) {
+			for (Plan plan : person.getPlans()) {
+				for (PlanElement pe : plan.getPlanElements()) {
+					if (pe instanceof Activity) {
+						((Activity) pe).setLinkId(null);
+					} else if (pe instanceof Leg) {
+						((Leg) pe).setRoute(null);
+					} else {
+						throw new RuntimeException("Plan element can either be activity or leg.");
+					}
+				}
+			}
+		}
 		Controler controler = prepareControler( scenario ) ;
 		controler.run() ;
 
@@ -186,7 +199,7 @@ public final class RunBerlinScenario {
 		
 		config.controler().setRoutingAlgorithmType( FastAStarLandmarks );
 		//config.controler().setLastIteration(1);//Add the setting to run only one iteration
-		config.controler().setLastIteration(50);//Add the setting to run only one iteration
+		config.controler().setLastIteration(100);//Add the setting to run only one iteration
 
 		config.subtourModeChoice().setProbaForRandomSingleTripMode( 0.5 );
 		

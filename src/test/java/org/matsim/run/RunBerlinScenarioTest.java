@@ -18,10 +18,6 @@
  * *********************************************************************** */
 package org.matsim.run;
 
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
@@ -40,6 +36,10 @@ import org.matsim.core.router.MainModeIdentifierImpl;
 import org.matsim.core.router.TripStructureUtils;
 import org.matsim.core.router.TripStructureUtils.Trip;
 import org.matsim.testcases.MatsimTestUtils;
+
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author ikaddoura
